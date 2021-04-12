@@ -1,16 +1,16 @@
-import { ApolloServer } from 'apollo-server-micro'
-import { schema } from '../../lib/schema'
+import { ApolloServer } from "apollo-server-micro";
+import { schema } from "../../lib/schema";
 
 const apolloServer = new ApolloServer({
-  schema,
-  introspection: true,
-  playground: true
-})
+    schema,
+    introspection: true,
+    playground: true,
+});
 
 export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
+    api: {
+        bodyParser: false,
+    },
+};
 
-export default apolloServer.createHandler({ path: '/api/graphql' })
+export default apolloServer.createHandler({ path: "/api/graphql" });
