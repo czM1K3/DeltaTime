@@ -1,6 +1,5 @@
 import { getData } from "./fetch";
-
-import { ResolverContext } from "./apollo";
+import { getDeltaTime } from "./time";
 
 const Query = {
     hello(_parent, _args, _context, _info) {
@@ -11,6 +10,9 @@ const Query = {
             return null;
         return await getData(args.classId, args.day, args.lesson);
     },
+    current() {
+        return getDeltaTime();
+    }
 };
 
 export default { Query };
