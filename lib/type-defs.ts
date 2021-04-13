@@ -4,6 +4,7 @@ export default gql`
     type Query {
         hello: String!
         current: Int!
-        bakalari(classId: String!, day: Int!, lesson: Int!): [String]
+        timetable(classId: String!): [[[String]]]
+        timetableSingle(classId: String!, day: Int!, lesson: Int!): [String]
     }
 `;
