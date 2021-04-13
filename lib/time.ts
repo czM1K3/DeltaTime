@@ -1,5 +1,5 @@
 export const getDeltaTime = (): number => {
-    let time = new Date();
+    let time = getTime();
     let hours = time.getHours();
     let minutes = time.getMinutes();
     let days = time.getDay();
@@ -50,7 +50,7 @@ export const getDeltaTime = (): number => {
 };
 
 export const getString = (current) => {
-    let time = new Date();
+    let time = getTime();
     let hours = time.getHours();
     let minutes = time.getMinutes();
     let seconds = time.getSeconds();
@@ -211,3 +211,7 @@ const CalcSec = (sekunda: number): string => {
         return "";
     }
 };
+
+const getTime = (): Date => {
+    return new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Prague"}))
+}
