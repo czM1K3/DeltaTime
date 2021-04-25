@@ -25,7 +25,7 @@ export default gql`
     }
 
     type Class {
-        id: String!
         label: String!
+        classId: String!
     }
 `;

@@ -9,7 +9,10 @@ export const getTimetable = async (classId) => {
         .then((text) => {
             const dom = new JSDOM(text);
             // @ts-ignore
-            const labelRaw = Array.from(dom.window.document.querySelectorAll("#selectedClass > option")).filter(x => x.selected)[0].innerHTML;
+            const labelRaw = Array.from(
+                dom.window.document.querySelectorAll("#selectedClass > option")
+                // @ts-ignore
+                ).filter(x => x.selected)[0].innerHTML;
             const myRe = new RegExp('[1-4].[A-B]', 'mg');
             const filtered = myRe.exec(labelRaw);
             const label = filtered[0];
@@ -53,7 +56,7 @@ export const getAllClasses = async () => {
                 const filtered = myRe.exec(text);
                 return { filtered, id };
             }).filter((x) => x.filtered != null).map(x => {
-                return {id: x.id, label: x.filtered[0]}
+                return {classId: x.id, label: x.filtered[0]}
             });
         })
         .catch(() => {
