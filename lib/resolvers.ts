@@ -9,7 +9,7 @@ const Query = {
     async timetable(_parent, args, _context, _info) {
         const { db } = await connectToDatabase();
         const response = await db.collection("timetable").findOne({ classId: args.classId });
-        return response.timetable;
+        return response;
     },
     async timetableSingle(_parent, args, _context, _info) {
         if (args.day < 0 || args.day > 4 || args.lesson < 0 || args.lesson > 10)
@@ -65,4 +65,12 @@ const Mutation = {
     },
 }
 
-export default { Query, Mutation };
+const TimeTable = {
+    monday: ({timetable}) => timetable.monday,
+    tuesday: ({timetable}) => timetable.tuesday,
+    wednesday: ({timetable}) => timetable.wednesday,
+    thursday: ({timetable}) => timetable.thursday,
+    friday: ({timetable}) => timetable.friday
+}
+
+export default { Query, Mutation, TimeTable };
