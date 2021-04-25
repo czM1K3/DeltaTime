@@ -1,4 +1,4 @@
-import { getTimetableSingle, getTimetable } from "./fetch";
+import { getTimetable } from "./fetch";
 import { getDeltaTime } from "./time";
 import { connectToDatabase } from "../utils/mongodb";
 
@@ -11,6 +11,26 @@ const Query = {
         const response = await db.collection("timetable").findOne({ classId: args.classId });
         return response.timetable;
     },
+    async timetableSingle(_parent, args, _context, _info) {
+        if (args.day < 0 || args.day > 4 || args.lesson < 0 || args.lesson > 10)
+            return null;
+        const { db } = await connectToDatabase();
+        const response = await db.collection("timetable").findOne({ classId: args.classId });
+        switch (args.day) {
+            case 0: return response.timetable.monday[args.lesson];
+            case 1: return response.timetable.tuesday[args.lesson];
+            case 2: return response.timetable.wednesday[args.lesson];
+            case 3: return response.timetable.thursday[args.lesson];
+            case 4: return response.timetable.friday[args.lesson];
+            default: return null;
+        }
+    },
+    current() {
+        return getDeltaTime();
+    }
+};
+
+const Mutation = {
     async updateTimetable(_parent, args, _context, _info) {
         const timetable = await getTimetable(args.classId);
         if (!timetable) return false;
@@ -23,8 +43,7 @@ const Query = {
                 thursday: timetable[3],
                 friday: timetable[4],
             }
-        }
-        ;
+        };
         const { db } = await connectToDatabase();
         if (await db.collection("timetable").findOne({classId: args.classId})){
             const response = await db.collection("timetable").update({classId: args.classId}, timetableDb);
@@ -35,14 +54,6 @@ const Query = {
             return response.result.ok;
         }
     },
-    async timetableSingle(_parent, args, _context, _info) {
-        if (args.day < 0 || args.day > 4 || args.lesson < 0 || args.lesson > 10)
-            return null;
-        return await getTimetableSingle(args.classId, args.day, args.lesson);
-    },
-    current() {
-        return getDeltaTime();
-    }
-};
+}
 
-export default { Query };
+export default { Query, Mutation };

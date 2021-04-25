@@ -5,10 +5,13 @@ export default gql`
         hello: String!
         current: Int!
 
-        updateTimetable(classId: String!): Boolean!
 
         timetable(classId: String!): TimeTable
         timetableSingle(classId: String!, day: Int!, lesson: Int!): [String]
+    }
+
+    type Mutation {
+        updateTimetable(classId: String!): Boolean!
     }
 
     type TimeTable {
