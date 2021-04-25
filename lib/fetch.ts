@@ -12,8 +12,8 @@ export const getTimetable = async (classId) => {
             const labelRaw = Array.from(
                 dom.window.document.querySelectorAll("#selectedClass > option")
                 // @ts-ignore
-                ).filter(x => x.selected)[0].innerHTML;
-            const myRe = new RegExp('[1-4].[A-B]', 'mg');
+            ).filter((x) => x.selected)[0].innerHTML;
+            const myRe = new RegExp("[1-4].[A-B]", "mg");
             const filtered = myRe.exec(labelRaw);
             const label = filtered[0];
             const timetable = [];
@@ -40,24 +40,27 @@ export const getTimetable = async (classId) => {
 };
 
 export const getAllClasses = async () => {
-    return await fetch(
-        "https://delta-skola.bakalari.cz/Timetable/Public"
-    )
+    return await fetch("https://delta-skola.bakalari.cz/Timetable/Public")
         .then((x) => x.text())
         .then((text) => {
             const dom = new JSDOM(text);
-            const list = Array.from(dom.window.document.querySelectorAll("#selectedClass > option"));
-            return list.map(x => {
-                // @ts-ignore
-                const text = x.innerHTML;
-                // @ts-ignore
-                const id = x.value;
-                const myRe = new RegExp('[1-4].[A-B]', 'mg');
-                const filtered = myRe.exec(text);
-                return { filtered, id };
-            }).filter((x) => x.filtered != null).map(x => {
-                return {classId: x.id, label: x.filtered[0]}
-            });
+            const list = Array.from(
+                dom.window.document.querySelectorAll("#selectedClass > option")
+            );
+            return list
+                .map((x) => {
+                    // @ts-ignore
+                    const text = x.innerHTML;
+                    // @ts-ignore
+                    const id = x.value;
+                    const myRe = new RegExp("[1-4].[A-B]", "mg");
+                    const filtered = myRe.exec(text);
+                    return { filtered, id };
+                })
+                .filter((x) => x.filtered != null)
+                .map((x) => {
+                    return { classId: x.id, label: x.filtered[0] };
+                });
         })
         .catch(() => {
             return null;

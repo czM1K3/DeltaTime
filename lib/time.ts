@@ -213,5 +213,7 @@ const CalcSec = (sekunda: number): string => {
 };
 
 const getTime = (): Date => {
-    return new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Prague"}))
-}
+    return new Date(
+        new Date().toLocaleString("en-US", { timeZone: "Europe/Prague" })
+    );
+};
