@@ -1,4 +1,4 @@
-import { getTimetable } from "./fetch";
+import { getTimetable, getAllClasses } from "./fetch";
 import { getDeltaTime } from "./time";
 import { connectToDatabase } from "../utils/mongodb";
 
@@ -27,6 +27,9 @@ const Query = {
     },
     current() {
         return getDeltaTime();
+    },
+    async allClasses(_parent, args, _context, _info) {
+        return await getAllClasses();
     }
 };
 

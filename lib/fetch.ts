@@ -30,3 +30,28 @@ export const getTimetable = async (classId) => {
             return null;
         });
 };
+
+export const getAllClasses = async () => {
+    return await fetch(
+        "https://delta-skola.bakalari.cz/Timetable/Public"
+    )
+        .then((x) => x.text())
+        .then((text) => {
+            const dom = new JSDOM(text);
+            const list = Array.from(dom.window.document.querySelectorAll("#selectedClass > option"));
+            return list.map(x => {
+                // @ts-ignore
+                const text = x.innerHTML;
+                // @ts-ignore
+                const id = x.value;
+                const myRe = new RegExp('[1-4].[A-B]', 'mg');
+                const filtered = myRe.exec(text);
+                return { filtered, id };
+            }).filter((x) => x.filtered != null).map(x => {
+                return {id: x.id, label: x.filtered[0]}
+            });
+        })
+        .catch(() => {
+            return null;
+        });
+};
