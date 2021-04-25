@@ -17,3 +17,9 @@
         background: #121212;
     }
 }
+
+.classes {
+    position: absolute;
+    color: white;
+    top: 0;
+}
