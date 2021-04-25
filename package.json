@@ -5,7 +5,7 @@
     "scripts": {
         "codegen": "graphql-let",
         "dev": "pnpm codegen && next dev",
-        "build": "pnpm codegen && next build",
+        "build": "npm run codegen && next build",
         "start": "next start",
         "format": "npx prettier --write ."
     },
