@@ -3,15 +3,13 @@ import { getDeltaTime } from "./time";
 import { connectToDatabase } from "../utils/mongodb";
 
 const Query = {
-    hello(_parent, _args, _context, _info) {
-        return "Hello world";
-    },
-    async timetable(_parent, args, _context, _info) {
+    hello: (_parent, _args, _context, _info) => "Hello world",
+    timetable: async (_parent, args, _context, _info) => {
         const { db } = await connectToDatabase();
         const response = await db.collection("timetable").findOne({ classId: args.classId });
         return response;
     },
-    async timetableSingle(_parent, args, _context, _info) {
+    timetableSingle: async (_parent, args, _context, _info) => {
         if (args.day < 0 || args.day > 4 || args.lesson < 0 || args.lesson > 10)
             return null;
         const { db } = await connectToDatabase();
@@ -25,13 +23,9 @@ const Query = {
             default: return null;
         }
     },
-    current() {
-        return getDeltaTime();
-    },
-    async allClasses(_parent, _args, _context, _info) {
-        return await getAllClasses();
-    },
-    async timetableAll(_parent, _args, _context, _info) {
+    current: () => getDeltaTime(),
+    allClasses: async (_parent, _args, _context, _info) => await getAllClasses(),
+    timetableAll: async (_parent, _args, _context, _info) => {
         const { db } = await connectToDatabase();
         const response = await db.collection("timetable").find().toArray();
         return response;
@@ -39,7 +33,7 @@ const Query = {
 };
 
 const Mutation = {
-    async updateTimetable(_parent, args, _context, _info) {
+    updateTimetable: async (_parent, args, _context, _info) => {
         const { timetable, label } = await getTimetable(args.classId);
         if (!timetable) return false;
         const timetableDb = {
