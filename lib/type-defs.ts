@@ -5,8 +5,8 @@ export default gql`
         hello: String!
         current: Int!
         allClasses: [Class]
-
         timetable(classId: String!): TimeTable
+        timetableAll: [TimeTable]
         timetableSingle(classId: String!, day: Int!, lesson: Int!): [String]
     }
 
@@ -15,6 +15,8 @@ export default gql`
     }
 
     type TimeTable {
+        label: String!
+        classId: String!
         monday: [[String]]
         tuesday: [[String]]
         wednesday: [[String]]

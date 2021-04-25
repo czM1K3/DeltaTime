@@ -28,17 +28,23 @@ const Query = {
     current() {
         return getDeltaTime();
     },
-    async allClasses(_parent, args, _context, _info) {
+    async allClasses(_parent, _args, _context, _info) {
         return await getAllClasses();
+    },
+    async timetableAll(_parent, _args, _context, _info) {
+        const { db } = await connectToDatabase();
+        const response = await db.collection("timetable").find().toArray();
+        return response;
     }
 };
 
 const Mutation = {
     async updateTimetable(_parent, args, _context, _info) {
-        const timetable = await getTimetable(args.classId);
+        const { timetable, label } = await getTimetable(args.classId);
         if (!timetable) return false;
         const timetableDb = {
             classId: args.classId + "",
+            label: label,
             timetable: {
                 monday: timetable[0],
                 tuesday: timetable[1],

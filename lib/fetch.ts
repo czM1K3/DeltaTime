@@ -8,7 +8,12 @@ export const getTimetable = async (classId) => {
         .then((x) => x.text())
         .then((text) => {
             const dom = new JSDOM(text);
-            const list = [];
+            // @ts-ignore
+            const labelRaw = Array.from(dom.window.document.querySelectorAll("#selectedClass > option")).filter(x => x.selected)[0].innerHTML;
+            const myRe = new RegExp('[1-4].[A-B]', 'mg');
+            const filtered = myRe.exec(labelRaw);
+            const label = filtered[0];
+            const timetable = [];
             for (let forday = 0; forday <= 4; forday++) {
                 const dayarray = [];
                 for (let forlesson = 0; forlesson <= 10; forlesson++) {
@@ -22,9 +27,9 @@ export const getTimetable = async (classId) => {
                     //@ts-ignore
                     dayarray.push(Array.from(nodeList).map((x) => x.innerHTML));
                 }
-                list.push(dayarray);
+                timetable.push(dayarray);
             }
-            return list;
+            return { timetable, label };
         })
         .catch(() => {
             return null;
