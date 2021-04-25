@@ -1,0 +1,3 @@
+query Current($classId: String!) {
+    timetableCurrent(classId: $classId)
+}

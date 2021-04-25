@@ -19,7 +19,7 @@
 }
 
 .classes {
-    position: absolute;
+    position: absolute!important;
     color: white;
     top: 0;
 }

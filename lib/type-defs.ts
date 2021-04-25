@@ -8,6 +8,7 @@ export default gql`
         timetable(classId: String!): TimeTable
         timetableAll: [TimeTable]
         timetableSingle(classId: String!, day: Int!, lesson: Int!): [String]
+        timetableCurrent(classId: String!): [String]
     }
 
     type Mutation {

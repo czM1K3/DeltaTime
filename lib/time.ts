@@ -212,6 +212,11 @@ const CalcSec = (sekunda: number): string => {
     }
 };
 
+export const GetDay = () => {
+    let time = getTime();
+    return time.getDay();
+}
+
 const getTime = (): Date => {
     return new Date(
         new Date().toLocaleString("en-US", { timeZone: "Europe/Prague" })
