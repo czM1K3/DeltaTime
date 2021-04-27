@@ -1,0 +1,7 @@
+query Index($classId: String!) {
+    timetableAll {
+        classId
+        label
+    }
+    timetableCurrent(classId: $classId)
+}

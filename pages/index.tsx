@@ -3,16 +3,16 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { getString, getDeltaTime } from "../lib/time";
-import { useClassListQuery } from "../lib/graphql/classList.graphql";
+import { useIndexQuery } from "../lib/graphql/index.graphql";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css"
 
 const Home: FC = () => {
     const [datum, setDatum] = useState("");
     const [deltatime, setDeltatime] = useState(getDeltaTime());
-    const [current, setCurrent] = useState("");
+    // const [current, setCurrent] = useState("");
     const [selected, setSelected] = useState("");
-    const { data, loading, error } = useClassListQuery();
+    const { data, loading, error, refetch } = useIndexQuery({variables: {classId: selected}});
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -24,7 +24,7 @@ const Home: FC = () => {
 
     useEffect(() => {
         if (selected) {
-            
+            refetch();
         }
     }, [deltatime, selected]);
 
@@ -47,7 +47,7 @@ const Home: FC = () => {
                 })} placeholder="Nevybráno" className={styles.classes} onChange={onSelect} />  
             } 
             {/* <p className={styles.classes}>{loading ? "Loading" : error ? "Error" : data.timetableAll.map(x => x.label + " ").sort()}</p> */}
-            <h1 className={styles.time}>{datum} {current}</h1>
+            <h1 className={styles.time}>{datum} {loading?"...":error?"error": data.timetableCurrent}</h1>
         </div>
     );
 };
