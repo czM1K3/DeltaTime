@@ -1,7 +1,6 @@
-query Index($classId: String!) {
+query Index {
     timetableAll {
         classId
         label
     }
-    timetableCurrent(classId: $classId)
 }

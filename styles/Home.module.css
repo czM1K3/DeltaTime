@@ -12,6 +12,10 @@
     color: white;
 }
 
+.class {
+    color: white;
+}
+
 @media (prefers-color-scheme: dark) {
     .container {
         background: #121212;
