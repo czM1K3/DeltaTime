@@ -8,6 +8,7 @@ type input = {
 const Current: FC<input> = ({current}) => {
     if (current.loading) return <h2 className={styles.class}>...</h2>;
     if (current.error) return <h2 className={styles.class}>Error</h2>
+    if (!current.data) return <h2></h2>
     return (
         <h2 className={styles.class}>{current.data.timetableCurrent.join('/')}</h2>
     )
