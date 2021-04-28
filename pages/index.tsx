@@ -18,8 +18,9 @@ const Home: FC = () => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setDeltatime(getDeltaTime());
-            setDatum(getString(deltatime));
+            const currentDeltaTime = getDeltaTime();
+            setDeltatime(currentDeltaTime);
+            setDatum(getString(currentDeltaTime));
         }, 500);
         return () => clearInterval(interval);
     });
