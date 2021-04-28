@@ -19,6 +19,7 @@ specifiers:
   react: 17.0.2
   react-dom: 17.0.2
   react-dropdown: ^1.9.2
+  sass: ^1.32.11
   typescript: ^4.2.4
 
 dependencies:
@@ -28,10 +29,11 @@ dependencies:
   graphql: 15.5.0
   jsdom: 16.5.3
   mongodb: 3.6.6
-  next: 10.1.3_507781d099a67956587e23f5ac79078b
+  next: 10.1.3_dda7c604c84b178482753913a28522f6
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-dropdown: 1.9.2_react-dom@17.0.2+react@17.0.2
+  sass: 1.32.11
 
 devDependencies:
   '@graphql-codegen/cli': 1.21.4_graphql@15.5.0+typescript@4.2.4
@@ -5362,7 +5364,7 @@ packages:
       querystring: 0.2.1
     dev: false
 
-  /next/10.1.3_507781d099a67956587e23f5ac79078b:
+  /next/10.1.3_dda7c604c84b178482753913a28522f6:
     resolution: {integrity: sha512-8Jf38F+s0YcXXkJGF5iUxOqSmbHrey0fX5Epc43L0uwDKmN2jK9vhc2ihCwXC1pmu8d2m/8wfTiXRJKGti55yw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
@@ -5422,6 +5424,7 @@ packages:
       react-dom: 17.0.2_react@17.0.2
       react-is: 16.13.1
       react-refresh: 0.8.3
+      sass: 1.32.11
       stream-browserify: 3.0.0
       stream-http: 3.1.1
       string_decoder: 1.3.0
@@ -6383,6 +6386,14 @@ packages:
       sparse-bitfield: 3.0.3
     dev: false
     optional: true
+
+  /sass/1.32.11:
+    resolution: {integrity: sha512-O9tRcob/fegUVSIV1ihLLZcftIOh0AF1VpKgusUfLqnb2jQ0GLDwI5ivv1FYWivGv8eZ/AwntTyTzjcHu0c/qw==}
+    engines: {node: '>=8.9.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.1
+    dev: false
 
   /saxes/5.0.1:
     resolution: {integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==}

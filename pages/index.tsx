@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Home.module.scss";
 import { getString, getDeltaTime } from "../lib/time";
 import { useIndexQuery } from "../lib/graphql/index.graphql";
 import Dropdown from "react-dropdown";

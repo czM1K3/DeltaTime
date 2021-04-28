@@ -1,0 +1,45 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0e6e1f;
+    flex-direction: column;
+}
+
+.time {
+    font-family: "Roboto", serif;
+    font-size: 100px;
+    color: white;
+    margin: 4pt 0;
+}
+
+.class {
+    margin: 0;
+    color: white;
+}
+
+.classes {
+    position: absolute!important;
+    color: white;
+    top: 0;
+    & > div:nth-child(1) {
+        background-color: forestgreen;
+        border: gray;
+        color: white;
+    }
+    & > div:nth-child(2) {
+        color: white;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .container {
+        background: #121212;
+    }
+    .classes {
+        & > div:nth-child(1) {
+            background-color: #333;
+        }
+    }
+}
