@@ -10,8 +10,8 @@ import Current from "../components/current";
 import { useCurrentQuery } from "../lib/graphql/current.graphql";
 
 const Home: FC = () => {
-    const [datum, setDatum] = useState("");
     const [deltatime, setDeltatime] = useState(getDeltaTime());
+    const [datum, setDatum] = useState(getString(deltatime));
     const [selected, setSelected] = useState("");
     const { data, loading, error } = useIndexQuery();
     const current = useCurrentQuery({variables: {classId: selected}});
