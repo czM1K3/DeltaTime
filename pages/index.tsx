@@ -47,7 +47,7 @@ const Home: FC = () => {
                         value: x.classId,
                         label: x.label
                     }
-                })} placeholder="Nevybráno" className={styles.classes} onChange={onSelect} />  
+                }).sort((a, b) => a.label.localeCompare(b.label))} placeholder="Nevybráno" className={styles.classes} onChange={onSelect} />  
             }
             <h1 className={styles.time}>{datum}</h1>
             <Current current={current} />
