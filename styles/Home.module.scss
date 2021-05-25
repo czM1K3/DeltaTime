@@ -5,13 +5,15 @@
     align-items: center;
     background-color: #0e6e1f;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 .time {
     font-family: "Roboto", serif;
-    font-size: 100px;
+    font-size: 3em;
     color: white;
     margin: 4pt 0;
+    max-width: 80vw;
     text-align: center;
 }
 
@@ -23,14 +25,21 @@
 .classes {
     position: absolute!important;
     color: white;
-    top: 0;
+    top: 20px;
+    font-size: 1.2em;
+  
     & > div:nth-child(1) {
         background-color: forestgreen;
         border: gray;
         color: white;
+        border-radius: 10px;
+        width: auto;
     }
     & > div:nth-child(2) {
+        margin-top: 5px;
+        border-radius: 10px;
         color: white;
+
     }
 }
 
