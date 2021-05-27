@@ -1,4 +1,9 @@
-module.exports = {
+const withPWA = require("next-pwa");
+
+module.exports = withPWA({
+    pwa: {
+        dest: 'public'
+    },
     typescript: {
         // !! WARN !!
         // Dangerously allow production builds to successfully complete even if
@@ -30,4 +35,4 @@ module.exports = {
 
         return config;
     },
-};
+});
