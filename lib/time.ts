@@ -1,59 +1,30 @@
-export const getDeltaTime = (): number => {
-    let time = getTime();
-    let hours = time.getHours();
-    let minutes = time.getMinutes();
-    let days = time.getDay();
-    let month = time.getUTCMonth();
+import { HourList, ConvertToMinutes } from "./hours";
 
-    if (month === 6 || month === 7) {
-        return 11;
-    } else if (days === 6 || days === 0) {
-        return 12;
-    } else if (hours < 8) {
-        return -1;
-    } else if (hours === 8 && minutes >= 0 && minutes < 45) {
-        return 1;
-    } else if (hours === 8 && minutes >= 45 && minutes < 50) {
-        return -2;
-    } else if (
-        (hours === 8 && minutes >= 50) ||
-        (hours === 9 && minutes < 35)
-    ) {
-        return 2;
-    } else if (hours === 9 && minutes < 50) {
-        return -3;
-    } else if (hours === 9 || (hours === 10 && minutes < 35)) {
-        return 3;
-    } else if (hours === 10 && minutes < 40) {
-        return -4;
-    } else if (hours === 10 || (hours === 11 && minutes < 25)) {
-        return 4;
-    } else if (hours === 11 && minutes < 35) {
-        return -5;
-    } else if (hours === 11 || (hours === 12 && minutes < 20)) {
-        return 5;
-    } else if (hours === 12 && minutes < 25) {
-        return -6;
-    } else if (hours === 12 || (hours === 13 && minutes < 10)) {
-        return 6;
-    } else if (hours === 13 && minutes < 15) {
-        return -7;
-    } else if (hours === 13) {
-        return 7;
-    } else if (hours === 14 && minutes < 45) {
-        return 8;
-    } else if (hours === 14 || (hours === 15 && minutes < 30)) {
-        return 9;
-    } else {
-        return 0;
-    }
+export const getDeltaTime = (): number => {
+    const time = getTime();
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    const days = time.getDay();
+    const month = time.getUTCMonth();
+    const dayMinutes = hours * 60 + minutes;
+
+    if (month === 6 || month === 7) return 11;
+    else if (days === 6 || days === 0) return 12;
+    
+    const returnable = HourList.map((x, index) => {
+        const realIndex = index + 1;
+        if (dayMinutes < ConvertToMinutes(x.startHour, x.startMinute)) return -1 * realIndex;
+        if (dayMinutes < ConvertToMinutes(x.endHour, x.endMinute)) return realIndex;
+    });
+    
+    return returnable.filter(Number)[0] ?? 0;
 };
 
 export const getString = (current) => {
-    let time = getTime();
-    let hours = time.getHours();
-    let minutes = time.getMinutes();
-    let seconds = time.getSeconds();
+    const time = getTime();
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
     let EndHour;
     let EndMinutes;
     let EndSeconds;
