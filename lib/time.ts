@@ -1,4 +1,4 @@
-import { HourList, ConvertToMinutes } from "./hours";
+import { HourList, ConvertToMinutes, GetRemainingTime } from "./hours";
 
 export const getDeltaTime = (): number => {
     const time = getTime();
@@ -25,161 +25,25 @@ export const getString = (current) => {
     const hours = time.getHours();
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
-    let EndHour;
-    let EndMinutes;
-    let EndSeconds;
+    const daySeconds = (hours * 60 * 60) + (minutes * 60) + seconds;
     switch (current) {
         case 0:
             return "Škola už dnes skončila.";
         case 11:
             return "Jsou prázdniny.";
         case 12:
-            return "Je víkend!";
-        case -1:
-            EndHour = 7 - hours;
-            EndMinutes = 59 - minutes;
-            EndSeconds = 59 - seconds;
-            return (
-                "Do začátku školy:\n" +
-                EndHour +
-                ":" +
-                CalcSec(EndMinutes) +
-                EndMinutes +
-                ":" +
-                CalcSec(EndSeconds) +
-                EndSeconds
-            );
-        case 1:
-            EndMinutes = 44 - minutes;
-            EndSeconds = 59 - seconds;
-            return EndMinutes + ":" + CalcSec(EndSeconds) + EndSeconds;
-        case -2:
-            EndMinutes = 49 - minutes;
-            EndSeconds = 59 - seconds;
-            return (
-                "Přestávka končí za: " +
-                EndMinutes +
-                ":" +
-                CalcSec(EndSeconds) +
-                EndSeconds
-            );
-        case 2:
-            EndHour = 9 - hours;
-            EndMinutes = 34 - minutes;
-            EndSeconds = 59 - seconds;
-            if (EndHour === 1) {
-                EndMinutes += 60;
-            }
-            return EndMinutes + ":" + CalcSec(EndSeconds) + EndSeconds;
-        case -3:
-            EndMinutes = 49 - minutes;
-            EndSeconds = 59 - seconds;
-            return (
-                "Přestávka končí za: " +
-                EndMinutes +
-                ":" +
-                CalcSec(EndSeconds) +
-                EndSeconds
-            );
-        case 3:
-            EndHour = 10 - hours;
-            EndMinutes = 34 - minutes;
-            EndSeconds = 59 - seconds;
-            if (EndHour === 1) {
-                EndMinutes += 60;
-            }
-            return EndMinutes + ":" + CalcSec(EndSeconds) + EndSeconds;
-        case -4:
-            EndMinutes = 39 - minutes;
-            EndSeconds = 59 - seconds;
-            return (
-                "Přestávka končí za: " +
-                EndMinutes +
-                ":" +
-                CalcSec(EndSeconds) +
-                EndSeconds
-            );
-        case 4:
-            EndHour = 11 - hours;
-            EndMinutes = 24 - minutes;
-            EndSeconds = 59 - seconds;
-            if (EndHour === 1) {
-                EndMinutes += 60;
-            }
-            return EndMinutes + ":" + CalcSec(EndSeconds) + EndSeconds;
-        case -5:
-            EndMinutes = 34 - minutes;
-            EndSeconds = 59 - seconds;
-            return (
-                "Přestávka končí za: " +
-                EndMinutes +
-                ":" +
-                CalcSec(EndSeconds) +
-                EndSeconds
-            );
-        case 5:
-            EndHour = 12 - hours;
-            EndMinutes = 19 - minutes;
-            EndSeconds = 59 - seconds;
-            if (EndHour === 1) {
-                EndMinutes += 60;
-            }
-            return EndMinutes + ":" + CalcSec(EndSeconds) + EndSeconds;
-        case -6:
-            EndMinutes = 24 - minutes;
-            EndSeconds = 59 - seconds;
-            return (
-                "Přestávka končí za: " +
-                EndMinutes +
-                ":" +
-                CalcSec(EndSeconds) +
-                EndSeconds
-            );
-        case 6:
-            EndHour = 13 - hours;
-            EndMinutes = 9 - minutes;
-            EndSeconds = 59 - seconds;
-            if (EndHour === 1) {
-                EndMinutes += 60;
-            }
-            return EndMinutes + ":" + CalcSec(EndSeconds) + EndSeconds;
-        case -7:
-            EndMinutes = 14 - minutes;
-            EndSeconds = 59 - seconds;
-            return (
-                "Přestávka končí za: " +
-                EndMinutes +
-                ":" +
-                CalcSec(EndSeconds) +
-                EndSeconds
-            );
-        case 7:
-            EndMinutes = 59 - minutes;
-            EndSeconds = 59 - seconds;
-            return EndMinutes + ":" + CalcSec(EndSeconds) + EndSeconds;
-        case 8:
-            EndMinutes = 44 - minutes;
-            EndSeconds = 59 - seconds;
-            return EndMinutes + ":" + CalcSec(EndSeconds) + EndSeconds;
-        case 9:
-            EndHour = 15 - hours;
-            EndMinutes = 29 - minutes;
-            EndSeconds = 59 - seconds;
-            if (EndHour === 1) {
-                EndMinutes += 60;
-            }
-            return EndMinutes + ":" + CalcSec(EndSeconds) + EndSeconds;
-
-        default:
-            return "Chyba";
+            return "Je víkend!";             
     }
+    const remaingingTime = GetRemainingTime(current, daySeconds);
+    if (current === -1) return `Škola začíná za:\n${remaingingTime.Hours}:${remaingingTime.Minutes}:${CalcSec(remaingingTime.Seconds)}`
+    return current < 1 ? `Přestávka končí za: ${remaingingTime.Minutes}:${CalcSec(remaingingTime.Seconds)}`:`${remaingingTime.Minutes}:${CalcSec(remaingingTime.Seconds)}`;
 };
 
 const CalcSec = (sekunda: number): string => {
     if (sekunda < 10) {
-        return "0";
+        return "0" + sekunda;
     } else {
-        return "";
+        return sekunda.toString();
     }
 };
 

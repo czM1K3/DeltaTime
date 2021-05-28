@@ -69,3 +69,20 @@ export const HourList: Hour[] = [
 ];
 
 export const ConvertToMinutes = (hours: number, minutes: number) => hours * 60 + minutes;
+const ConvertToSeconds = (hours: number, minutes: number, seconds: number) => (hours * 60 * 60) + (minutes * 60) + seconds;
+
+type HoursMinutesSeconds = {
+    Hours: number,
+    Minutes: number,
+    Seconds: number
+}
+
+export const GetRemainingTime = (current: number, daySeconds: number): HoursMinutesSeconds => {
+    const selected = HourList[Math.abs(current) - 1];
+    const difference = ( current < 0 ? ConvertToSeconds(selected.startHour, selected.startMinute, 0) : ConvertToSeconds(selected.endHour, selected.endMinute, 0)) - daySeconds - 1;
+    return {
+        Hours: Math.floor(difference / 60 / 60),
+        Minutes: Math.floor(difference / 60) - (Math.floor(difference / 60 / 60) * 60),
+        Seconds: difference - (Math.floor(difference / 60) * 60) 
+    }
+}
