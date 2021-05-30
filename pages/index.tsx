@@ -8,13 +8,15 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css"
 import Current from "../components/current";
 import { useCurrentQuery } from "../lib/graphql/current.graphql";
+import { useCookies } from "react-cookie";
 
 const Home: FC = () => {
     const [deltatime, setDeltatime] = useState(getDeltaTime());
     const [datum, setDatum] = useState(getString(deltatime));
     const [selected, setSelected] = useState("");
     const { data, loading, error } = useIndexQuery();
-    const current = useCurrentQuery({variables: {classId: selected}});
+    const [cookie, setCookie] = useCookies(["selected"]);
+    const current = useCurrentQuery({variables: {classId: cookie.selected ?? ""}});
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -32,6 +34,11 @@ const Home: FC = () => {
     }, [deltatime, selected]);
 
     const onSelect = ({value}) => {
+        setCookie("selected", value, {
+            path: "/",
+            maxAge: 30 * 24 * 60,
+            sameSite: true
+        });
         setSelected(value);
     }
 
@@ -58,7 +65,7 @@ const Home: FC = () => {
                         value: x.classId,
                         label: x.label
                     }
-                }).sort((a, b) => a.label.localeCompare(b.label))} placeholder="Nevybráno" className={styles.classes} onChange={onSelect} />  
+                }).sort((a, b) => a.label.localeCompare(b.label))} placeholder="Nevybráno" className={styles.classes} onChange={onSelect} value={cookie.selected ?? ""} />  
             }
             <h1 className={styles.time}>{datum}</h1>
             <Current current={current} />
