@@ -13,7 +13,6 @@ import { useCookies } from "react-cookie";
 const Home: FC = () => {
     const [deltatime, setDeltatime] = useState(getDeltaTime());
     const [datum, setDatum] = useState(getString(deltatime));
-    const [selected, setSelected] = useState("");
     const { data, loading, error } = useIndexQuery();
     const [cookie, setCookie] = useCookies(["selected"]);
     const current = useCurrentQuery({variables: {classId: cookie.selected ?? ""}});
@@ -28,10 +27,10 @@ const Home: FC = () => {
     });
 
     useEffect(() => {
-        if (selected) {
+        if (cookie.selected) {
             current.refetch();
         }
-    }, [deltatime, selected]);
+    }, [deltatime, cookie.selected]);
 
     const onSelect = ({value}) => {
         setCookie("selected", value, {
@@ -39,7 +38,6 @@ const Home: FC = () => {
             maxAge: 30 * 24 * 60,
             sameSite: true
         });
-        setSelected(value);
     }
 
     return (
