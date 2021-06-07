@@ -2,7 +2,7 @@
   "name": "DeltaTime",
   "short_name": "DeltaTime",
   "theme_color": "#00b24f",
-  "background_color": "#b9b9b9",
+  "background_color": "#00b24f",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
