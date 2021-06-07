@@ -35,7 +35,7 @@ const Home: FC = () => {
     const onSelect = ({value}) => {
         setCookie("selected", value, {
             path: "/",
-            maxAge: 30 * 24 * 60,
+            maxAge: 30*24*60*60,
             sameSite: true
         });
     }
