@@ -10,9 +10,14 @@ import Current from "../components/current";
 import { useCurrentQuery } from "../lib/graphql/current.graphql";
 import { useCookies } from "react-cookie";
 
-const Home: FC = () => {
-    const [deltatime, setDeltatime] = useState(getDeltaTime());
-    const [datum, setDatum] = useState(getString(deltatime));
+type HomeProps = {
+    serverDeltaTime: number,
+    serverTime: string,
+}
+
+const Home: FC<HomeProps> = ({serverDeltaTime ,serverTime}) => {
+    const [deltatime, setDeltatime] = useState(serverDeltaTime);
+    const [datum, setDatum] = useState(serverTime);
     const { data, loading, error } = useIndexQuery();
     const [cookie, setCookie] = useCookies(["selected"]);
     const current = useCurrentQuery({variables: {classId: cookie.selected ?? ""}});
@@ -70,4 +75,16 @@ const Home: FC = () => {
         </div>
     );
 };
+
+export const getServerSideProps = () => {
+    const serverDeltaTime = getDeltaTime();
+    const serverTime = getString(serverDeltaTime);
+    return {
+        props: {
+            serverDeltaTime,
+            serverTime,
+        },
+    };
+};
+
 export default Home;
