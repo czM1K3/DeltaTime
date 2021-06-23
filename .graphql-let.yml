@@ -1,6 +1,6 @@
 schema: lib/type-defs.ts
 documents: "**/*.graphql"
 plugins:
-  - typescript
-  - typescript-operations
-  - typescript-react-apollo
+    - typescript
+    - typescript-operations
+    - typescript-react-apollo

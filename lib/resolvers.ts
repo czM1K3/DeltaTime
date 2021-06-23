@@ -36,7 +36,13 @@ const Query = {
     timetableCurrent: async (_parent, args, _context, _info) => {
         const deltatime = getDeltaTime();
         // const deltatime = 1;
-        if (deltatime === 11 || deltatime === 12 || deltatime === 0 || args.classId === "") return null;
+        if (
+            deltatime === 11 ||
+            deltatime === 12 ||
+            deltatime === 0 ||
+            args.classId === ""
+        )
+            return null;
         const day = GetDay() - 1;
         // const day = 0;
         const { db } = await connectToDatabase();

@@ -23,11 +23,11 @@
 }
 
 .classes {
-    position: absolute!important;
+    position: absolute !important;
     color: white;
     top: 20px;
     font-size: 1.2em;
-  
+
     & > div:nth-child(1) {
         background-color: forestgreen;
         border: gray;
@@ -39,7 +39,6 @@
         margin-top: 5px;
         border-radius: 10px;
         color: white;
-
     }
 }
 
