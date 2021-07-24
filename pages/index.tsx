@@ -9,6 +9,7 @@ import "react-dropdown/style.css";
 import Current from "../components/current";
 import { useCurrentQuery } from "../lib/graphql/current.graphql";
 import { useCookies } from "react-cookie";
+import { GoMarkGithub } from "react-icons/go";
 
 type HomeProps = {
     serverDeltaTime: number;
@@ -102,6 +103,7 @@ const Home: FC<HomeProps> = ({ serverDeltaTime, serverTime }) => {
             )}
             <h1 className={styles.time}>{datum}</h1>
             <Current current={current} />
+            <a href="https://github.com/czM1K3/DeltaTime"><GoMarkGithub className={styles.github} /></a>
         </div>
     );
 };
