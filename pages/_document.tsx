@@ -5,13 +5,23 @@ import { GA_TRACKING_ID } from "../lib/gtag";
 export default class MyDocument extends Document {
     render() {
         return (
-            <Html>
+            <Html lang="cs">
                 <Head>
                     {/* Global Site Tag (gtag.js) - Google Analytics */}
                     <script
                         async
                         src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
                     />
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1"
+                    />
+                    <meta httpEquiv="content-language" content="cs" />
+                    <meta
+                        name="description"
+                        content="DELTA - Střední škola informatiky a ekonomie, s.r.o."
+                    />
+
                     <script
                         dangerouslySetInnerHTML={{
                             __html: `

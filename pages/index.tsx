@@ -57,8 +57,14 @@ const Home: FC<HomeProps> = ({ serverDeltaTime, serverTime }) => {
                     name="viewport"
                     content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
                 />
-                <meta name="description" content="Description" />
-                <meta name="keywords" content="Keywords" />
+                <meta
+                    name="description"
+                    content="DELTA - Střední škola informatiky a ekonomie, s.r.o."
+                />
+                <meta
+                    name="keywords"
+                    content="DELTA - Střední škola informatiky a ekonomie, s.r.o."
+                />
                 <title>{datum}</title>
                 <link rel="icon" href="/logo.ico" />
 
@@ -103,7 +109,9 @@ const Home: FC<HomeProps> = ({ serverDeltaTime, serverTime }) => {
             )}
             <h1 className={styles.time}>{datum}</h1>
             <Current current={current} />
-            <a href="https://github.com/czM1K3/DeltaTime"><GoMarkGithub className={styles.github} /></a>
+            <a href="https://github.com/czM1K3/DeltaTime">
+                <GoMarkGithub className={styles.github} alt="github" />
+            </a>
         </div>
     );
 };
