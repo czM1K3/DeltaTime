@@ -40,6 +40,9 @@
         border-radius: 10px;
         color: white;
     }
+
+    
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,4 +54,16 @@
             background-color: #333;
         }
     }
+}
+
+
+.classes ::-webkit-scrollbar {
+    width: 14px;
+}
+
+.classes ::-webkit-scrollbar-thumb {
+   border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+  background-color: #AAAAAA;
 }
