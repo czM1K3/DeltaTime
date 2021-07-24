@@ -10,6 +10,7 @@ import Current from "../components/current";
 import { useCurrentQuery } from "../lib/graphql/current.graphql";
 import { useCookies } from "react-cookie";
 import { GoMarkGithub } from "react-icons/go";
+import Link from "next/link";
 
 type HomeProps = {
     serverDeltaTime: number;
@@ -55,7 +56,7 @@ const Home: FC<HomeProps> = ({ serverDeltaTime, serverTime }) => {
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta
                     name="viewport"
-                    content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+                    content="width=device-width, initial-scale=1.0"
                 />
                 <meta
                     name="description"
@@ -109,9 +110,9 @@ const Home: FC<HomeProps> = ({ serverDeltaTime, serverTime }) => {
             )}
             <h1 className={styles.time}>{datum}</h1>
             <Current current={current} />
-            <a href="https://github.com/czM1K3/DeltaTime">
-                <GoMarkGithub className={styles.github} alt="github" />
-            </a>
+            <Link href="https://github.com/czM1K3/DeltaTime">
+                <GoMarkGithub className={styles.github} />
+            </Link>
         </div>
     );
 };
