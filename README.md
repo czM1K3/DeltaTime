@@ -2,13 +2,15 @@
 
 ## Getting Started
 
--   Create `.env.local` file
+-   Create MongoDB database
+
+-   Create `.env.local` file and fill in MongoDB credentials
 
 -   Deploy server:
 
 ```bash
-pnpm install
-pnpm dev
+yarn
+yarn dev
 ```
 
 -   Go to `localhost:3000` to see your webpage
