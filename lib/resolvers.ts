@@ -3,6 +3,7 @@ import { GetDay, getDeltaTime } from "./time";
 import { connectToDatabase } from "../utils/mongodb";
 import { QueryResolvers, MutationResolvers } from "../.cache/__types__";
 import { ResolverContext } from "./apollo";
+import scrapeLunch from "./scrapeLunch";
 
 const Query: Required<QueryResolvers<ResolverContext>> = {
     hello: (_parent, _args, _context, _info) => "Hello world",
@@ -74,6 +75,29 @@ const Query: Required<QueryResolvers<ResolverContext>> = {
         const response = await db.collection("timetable").find().toArray();
         return response;
     },
+    lunch: async (_parent, _args, _context, _info) => {
+        const deltatime = getDeltaTime();
+        if (
+            deltatime === 11 ||
+            deltatime === 12 ||
+            deltatime === 0
+        )
+            return null;
+            
+        const date = new Date();
+        const currentDate = JSON.stringify(date).substring(1, 11);
+        
+        const { db } = await connectToDatabase();
+
+        const response = await db.collection("lunch").findOne({"date": currentDate});
+        if (response) return response;
+
+        const scraped = await scrapeLunch(db);
+        if (!scraped) return null;
+        const actual = scraped.find(x => x.date === currentDate);
+        if (!actual) return null;
+        return actual;
+    }
 };
 
 const Mutation: Required<MutationResolvers<ResolverContext>> = {
