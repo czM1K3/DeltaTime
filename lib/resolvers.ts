@@ -42,11 +42,10 @@ const Query: Required<QueryResolvers<ResolverContext>> = {
         if (
             deltatime === 11 ||
             deltatime === 12 ||
-            deltatime === 0 ||
             args.classId === ""
         )
             return null;
-        const day = GetDay() - 1;
+        const day = deltatime === 0 ? GetDay() : GetDay() - 1;
         // const day = 0;
         const { db } = await connectToDatabase();
         const response = await db
@@ -54,14 +53,19 @@ const Query: Required<QueryResolvers<ResolverContext>> = {
             .findOne({ classId: args.classId });
         switch (day) {
             case 0:
+                if (deltatime === 0) return response.timetable.monday.flat();
                 return response.timetable.monday[Math.abs(deltatime)];
             case 1:
+                if (deltatime === 0) return response.timetable.tuesday.flat();
                 return response.timetable.tuesday[Math.abs(deltatime)];
             case 2:
+                if (deltatime === 0) return response.timetable.wednesday.flat();
                 return response.timetable.wednesday[Math.abs(deltatime)];
             case 3:
+                if (deltatime === 0) return response.timetable.thursday.flat();
                 return response.timetable.thursday[Math.abs(deltatime)];
             case 4:
+                if (deltatime === 0) return response.timetable.friday.flat();
                 return response.timetable.friday[Math.abs(deltatime)];
             default:
                 return null;
