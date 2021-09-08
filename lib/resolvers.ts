@@ -76,13 +76,13 @@ const Query: Required<QueryResolvers<ResolverContext>> = {
         return response;
     },
     lunch: async (_parent, _args, _context, _info) => {
-        // const deltatime = getDeltaTime();
-        // if (
-        //     deltatime === 11 ||
-        //     deltatime === 12 ||
-        //     deltatime === 0
-        // )
-        //     return null;
+        const deltatime = getDeltaTime();
+        if (
+            deltatime === 11 ||
+            deltatime === 12 ||
+            deltatime === 0
+        )
+            return null;
             
         const date = new Date();
         const currentDate = JSON.stringify(date).substring(1, 11);
