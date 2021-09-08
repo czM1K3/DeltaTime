@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, Db } from "mongodb";
 
 const { MONGODB_URI, MONGODB_DB } = process.env;
 
@@ -27,7 +27,12 @@ if (!cached) {
     cached = global.mongo = { conn: null, promise: null };
 }
 
-export const connectToDatabase = async () => {
+type MyMongoClient = {
+    client: MongoClient;
+    db: Db;
+};
+
+export const connectToDatabase = async (): Promise<MyMongoClient> => {
     if (cached.conn) {
         return cached.conn;
     }
