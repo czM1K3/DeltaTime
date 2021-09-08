@@ -3,4 +3,11 @@ query Index {
         classId
         label
     }
+    lunch {
+        soup
+        lunch1
+        lunch2
+        lunch3
+        extra
+    }
 }

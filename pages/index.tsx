@@ -11,6 +11,7 @@ import { useCurrentQuery } from "../lib/graphql/current.graphql";
 import { useCookies } from "react-cookie";
 import { GoMarkGithub } from "react-icons/go";
 import Link from "next/link";
+import Lunch from "../components/lunch";
 
 type HomeProps = {
     serverDeltaTime: number;
@@ -110,6 +111,7 @@ const Home: FC<HomeProps> = ({ serverDeltaTime, serverTime }) => {
             )}
             <h1 className={styles.time}>{datum}</h1>
             <Current current={current} />
+            { !loading && !error && data.lunch ? <Lunch lunch={data.lunch} />:<></> }
             <Link href="https://github.com/czM1K3/DeltaTime">
                 <GoMarkGithub className={styles.github} />
             </Link>
