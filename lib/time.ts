@@ -22,7 +22,7 @@ export const getDeltaTime = (): number => {
     return returnable.filter(Number)[0] ?? 0;
 };
 
-export const getString = (current) => {
+export const getString = (current: number): string => {
     const time = getTime();
     const hours = time.getHours();
     const minutes = time.getMinutes();

@@ -1,8 +1,10 @@
 import { getTimetable, getAllClasses } from "./fetch";
 import { GetDay, getDeltaTime } from "./time";
 import { connectToDatabase } from "../utils/mongodb";
+import { QueryResolvers, MutationResolvers } from "../.cache/__types__";
+import { ResolverContext } from "./apollo";
 
-const Query = {
+const Query: Required<QueryResolvers<ResolverContext>> = {
     hello: (_parent, _args, _context, _info) => "Hello world",
     timetable: async (_parent, args, _context, _info) => {
         const { db } = await connectToDatabase();
@@ -74,7 +76,7 @@ const Query = {
     },
 };
 
-const Mutation = {
+const Mutation: Required<MutationResolvers<ResolverContext>> = {
     updateTimetable: async (_parent, args, _context, _info) => {
         const { timetable, label } = await getTimetable(args.classId);
         if (!timetable) return false;
