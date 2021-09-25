@@ -1,0 +1,5 @@
+[{
+	"relation": ["delegate_permission/common.handle_all_urls"],
+	"target" : { "namespace": "android_app", "package_name": "com.madsoft.deltatime",
+				 "sha256_cert_fingerprints": ["CB:2D:3C:E3:E9:51:2D:24:F0:BC:A2:E7:A5:81:BE:FA:3F:82:A8:BB:94:56:F9:3A:61:1D:C4:44:6E:DD:E1:A3"] }
+  }]
