@@ -13,14 +13,9 @@ import { GoMarkGithub } from "react-icons/go";
 import Link from "next/link";
 import Lunch from "../components/lunch";
 
-type HomeProps = {
-    serverDeltaTime: number;
-    serverTime: string;
-};
-
-const Home: FC<HomeProps> = ({ serverDeltaTime, serverTime }) => {
-    const [deltatime, setDeltatime] = useState(serverDeltaTime);
-    const [datum, setDatum] = useState(serverTime);
+const Home: FC = () => {
+    const [deltatime, setDeltatime] = useState(0);
+    const [datum, setDatum] = useState("Načítání");
     const { data, loading, error } = useIndexQuery();
     const [cookie, setCookie] = useCookies(["selected"]);
     const current = useCurrentQuery({
@@ -117,17 +112,6 @@ const Home: FC<HomeProps> = ({ serverDeltaTime, serverTime }) => {
             </Link>
         </div>
     );
-};
-
-export const getServerSideProps = () => {
-    const serverDeltaTime = getDeltaTime();
-    const serverTime = getString(serverDeltaTime);
-    return {
-        props: {
-            serverDeltaTime,
-            serverTime,
-        },
-    };
 };
 
 export default Home;

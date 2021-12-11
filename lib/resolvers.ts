@@ -11,7 +11,7 @@ const Query: Required<QueryResolvers<ResolverContext>> = {
         const { db } = await connectToDatabase();
         const response = await db
             .collection("timetable")
-            .findOne({ classId: args.classId });
+            .findOne({ classId: args.classId }) as any;
         return response;
     },
     timetableSingle: async (_parent, args, _context, _info) => {
@@ -76,7 +76,7 @@ const Query: Required<QueryResolvers<ResolverContext>> = {
         await getAllClasses(),
     timetableAll: async (_parent, _args, _context, _info) => {
         const { db } = await connectToDatabase();
-        const response = await db.collection("timetable").find().toArray();
+        const response = await db.collection("timetable").find().toArray() as any;
         return response;
     },
     lunch: async (_parent, _args, _context, _info) => {
@@ -125,13 +125,13 @@ const Mutation: Required<MutationResolvers<ResolverContext>> = {
         ) {
             const response = await db
                 .collection("timetable")
-                .update({ classId: args.classId }, timetableDb);
-            return response.result.ok;
+                .updateOne({ classId: args.classId }, timetableDb);
+            return response.modifiedCount === 1;
         } else {
             const response = await db
                 .collection("timetable")
                 .insertOne(timetableDb);
-            return response.result.ok;
+            return response.acknowledged;
         }
     },
 };
